@@ -6,16 +6,43 @@
 
   let upgrades = [
     { cost: 15, name: "Doubler", multiplier: 2, worker: 0 },
-    { cost: 5, name: "Worker", multiplier: 0, worker: 1 },
+    { cost: 50, name: "Worker", multiplier: 0, worker: 1 },
+    { cost: 5000, name: "Super Worker", multiplier: 10, worker: 1 },
+    { cost: 0, name: "Cheats", multiplier: 1000000000000, worker: 10000000000000 },
   ];
 
   function increment() {
     clicks = clicks + multiplier;
     console.log("click" + clicks);
   }
+
+  function nFormatter(num, digits) {
+  const lookup = [
+    { value: 1, symbol: "" },
+    { value: 1e3, symbol: "k" },
+    { value: 1e6, symbol: "M" },
+    { value: 1e9, symbol: "B" },
+    { value: 1e12, symbol: "T" },
+    { value: 1e15, symbol: "Q" },
+    { value: 1e18, symbol: "Quin" },
+    { value: 1e21, symbol: "S"},
+    { value: 1e24, symbol: "Sept" },
+    { value: 1e27, symbol: "O" },
+    { value: 1e30, symbol: "N" },
+    { value: 1e33, symbol: "D" },
+    { value: 1e100, symbol: "Googol" },
+  ];
+  const rx = /.0+$|(.[0-9]*[1-9])0+$/;
+  var item = lookup.slice().reverse().find(function(item) {
+    return num >= item.value;
+  });
+  return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
+}
+
 </script>
 
 <article>
+  <body bgcolor="#000000">
   <header>
     <div class="grid">
       {#each upgrades as upgrade}
@@ -26,6 +53,7 @@
               if (upgrade.multiplier) {
                 multiplier = multiplier * upgrade.multiplier;
                 clicks -= upgrade.cost;
+                upgrade.cost = upgrade.cost*5
               }
               if (upgrade.worker && clicks) {
                 worker_multiplier = worker_multiplier * 2;
@@ -33,6 +61,7 @@
                 /* start "clicking" every 1000 ms */
                 setInterval(increment, 1000);
                 clicks -= upgrade.cost;
+                upgrade.cost = upgrade.cost *2
               }
             } else {
               alert("Click some more first!");
@@ -40,15 +69,15 @@
           }}
         >
           <span>{upgrade.name}</span>
-          <span>{upgrade.cost * worker_multiplier}</span>
+          <span>{upgrade.cost}</span>
         </button>
       {/each}
     </div>
   </header>
   <div class="game">
     <button on:click={increment} class="clicker">
-      <span class="clicks">{clicks}</span>
-      <span class="pointtext">PPC: {multiplier}</span>
+      <span class="clicks">{nFormatter( clicks,1)}</span>
+      <span class="pointtext">PPC: {nFormatter(multiplier)}</span>
     </button>
   </div>
   <footer>
@@ -58,7 +87,7 @@
         <hr />
         <div class="shop">
           {#each workers as worker}
-            <div class="worker">{worker}</div>
+            <div class="Worker">{worker}</div>
           {/each}
         </div>
       </div>
@@ -66,6 +95,12 @@
     </div>
   </footer>
 </article>
+
+<main class="container_fluid">
+  <body bgcolor="#000000">
+  ></body>
+</main>
+
 
 <style>
   .shop {
@@ -76,27 +111,39 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
+.upgrade span {
+  color:rgb(0, 0, 0)
+}
+
   .upgrade {
     width: 100%;
-    height: 100%;
-    border: 4px solid rgb(11, 8, 238);
-    background-color: rgb(89, 0, 255);
+    height: 110%;
+    border: 5px solid rgb(220, 220, 220);
+    background-color: rgb(220, 220, 220);
     background-size: cover;
-    background-image: url("data:image/jpeg;base64,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");
+    background-image: url("https://previews.123rf.com/images/boygointer/boygointer1508/boygointer150801140/44075190-text-upgrade-button-3d-render.jpg");
+    background-position: -5px -50px;
     place-items: center;
     place-content: center;
     display: flex;
     flex-direction: column;
+    font: 1em "times-new-roman";
   }
 
   .worker {
     width: 100%;
     height: 100%;
-    border: 1px solid rgb(0, 55, 255);
+    border: 5px solid rgb(220, 220, 220);
     background-color: rgb(0, 0, 0);
+    background-image: url("https://previews.123rf.com/images/boygointer/boygointer1508/boygointer150801140/44075190-text-upgrade-button-3d-render.jpg");
+    background-size: cover;
     place-items: center;
     place-content: center;
     display: flex;
+  }
+
+  .worker {
+    background-image: url("https://images-prod.dazeddigital.com/592/azure/dazed-prod/1060/8/1068776.jpg")
   }
 
   .game {
@@ -107,23 +154,23 @@
     place-content: center;
   }
   .clicker {
-    clip-path: circle();
+    clip-path: ellipse();
     display: flex;
     height: 100%;
     width: 100%;
     flex-direction: column;
     place-items: center;
     place-content: center;
-    background-image: url("https://images-prod.dazeddigital.com/592/azure/dazed-prod/1060/8/1068776.jpg");
+    background-image: url("https://i.kym-cdn.com/photos/images/original/002/491/279/26f.gif");
     background-size: cover;
-    background-position: 0px -100px;
+    background-position: -3px -80px;
   }
 
   .panelright {
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
   }
 
   .clicks {
@@ -135,4 +182,5 @@
     font-size: 25px;
     font-weight: bold;
   }
+
 </style>
