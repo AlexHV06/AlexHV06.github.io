@@ -1,0 +1,38 @@
+---
+title: Tredje posten
+date: "2023-01-17"
+---
+
+Jag har ändrat mer färg på bakgrunden och bytt bild på **cookien** till en **GIF** istället. Jag har också gjort så att när du klickar och får nog med clicks så står det **K** när du har tusen, **M** när du har miljoner, **B** när du har miljarder osv. Såhär:
+
+```css
+
+  function nFormatter(num, digits) {
+  const lookup = [
+    { value: 1, symbol: "" },
+    { value: 1e3, symbol: "k" },
+    { value: 1e6, symbol: "M" },
+    { value: 1e9, symbol: "B" },
+    { value: 1e12, symbol: "T" },
+    { value: 1e15, symbol: "Q" },
+    { value: 1e18, symbol: "Quin" },
+    { value: 1e21, symbol: "S"},
+    { value: 1e24, symbol: "Sept" },
+    { value: 1e27, symbol: "O" },
+    { value: 1e30, symbol: "N" },
+    { value: 1e33, symbol: "D" },
+  ];
+  const rx = /.0+$|(.[0-9]*[1-9])0+$/;
+  var item = lookup.slice().reverse().find(function(item) {
+    return num >= item.value;
+  });
+  return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
+}
+```
+
+Och såhär:
+
+```css
+<span class="clicks">{nFormatter( clicks,1)}</span>
+      <span class="pointtext">PPC: {nFormatter(multiplier)}</span>
+```

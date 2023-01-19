@@ -1,0 +1,10 @@
+---
+title: Fjärde posten
+date: "2023-01-19"
+---
+
+Jag har fixat mina upgrade knappar **Doubler**, **Worker**, **Super Worker** och jag har också gjort en fjärde knapp "**Cheats**". Den kostar inget och ger en galen multiplier så att jag kan testa olika saker. Jag blev trött på att köra spelet varje gång jag ville testa något. 
+
+Innan så kostade mina upgrade knappar bara lika mycket som den gjorde från början. Doubler knappen kostade 15 points hela tiden, men mina PPC dubblades. När jag upgraderade mina Workers så stod det att priset höjdes men jag betalade bara grundpriset. Så jag fixade det.
+
+Jag ändrade också outline färgen på upgrade knappen till grå så att den inte blendade in med bagkrunds färgen som är svart.

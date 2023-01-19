@@ -1,0 +1,13 @@
+---
+title: Andra posten
+date: "2023-01-16"
+---
+
+Jag har bytt färg på en del av bakgrunden, så nu är en del svart och en annan vit. Jag ändrade doubble knappen till en tripple knapp. Jag har också laggt till en till upgrade knapp, jag försökte ändra bilden så **worker** och **tripple** är olika, men jag lyckades inte. Jag ändrade också fonten på texten till new times roman. Såhär gjorde jag bakgrunden svart:
+
+```css
+<main class="container_fluid">
+  <body bgcolor="#000000"
+  ></body>
+</main>
+```

@@ -1,0 +1,8 @@
+---
+title: Första posten
+date: "2023-01-12"
+---
+
+Fösta posten: Jag har ändrat cookie knappen till en bild av ett ansiket och jag har ändrat upgrade knapparna till en bild av "upgrade". Jag har också ändrat så att cookien inte en cirkel, nu är den en oval.
+
+
